@@ -19,14 +19,18 @@
 
 @implementation VSThemeLoader
 
+- (instancetype)init
+{
+    return [self initWithResourceName:@"DB5"];
+}
 
-- (id)init {
+- (instancetype)initWithResourceName:(NSString*)resourceName {
 	
 	self = [super init];
 	if (self == nil)
 		return nil;
 	
-	NSString *themesFilePath = [[NSBundle mainBundle] pathForResource:@"DB5" ofType:@"plist"];
+	NSString *themesFilePath = [[NSBundle mainBundle] pathForResource:resourceName ofType:@"plist"];
 	NSDictionary *themesDictionary = [NSDictionary dictionaryWithContentsOfFile:themesFilePath];
 	
 	NSMutableArray *themes = [NSMutableArray array];

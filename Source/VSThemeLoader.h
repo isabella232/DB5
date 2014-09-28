@@ -16,6 +16,7 @@
 @property (nonatomic, strong, readonly) VSTheme *defaultTheme;
 @property (nonatomic, strong, readonly) NSArray *themes;
 
+- (instancetype)initWithResourceName:(NSString*)resourceName;
 - (VSTheme *)themeNamed:(NSString *)themeName;
 
 @end
