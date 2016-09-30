@@ -152,10 +152,35 @@ static COLORCLASS *colorWithHexString(NSString *hexString);
 
 	FONTCLASS *font = nil;
     
-	if (stringIsEmpty(fontName))
-		font = [FONTCLASS systemFontOfSize:fontSize];
-	else
-		font = [FONTCLASS fontWithName:fontName size:fontSize];
+    if (stringIsEmpty(fontName)) {
+        font = [FONTCLASS systemFontOfSize:fontSize];
+    } else {
+        // Translate HelveticaNeue fonts into system font
+        NSArray* components = [fontName componentsSeparatedByString:@"-"];
+        if (components.count > 0 && [components[0] isEqualToString:@"HelveticaNeue"]) {
+            if (components.count > 1) {
+                NSString* weightString = components[1];
+                if ([weightString isEqualToString:@"UltraLight"]) {
+                    font = [FONTCLASS systemFontOfSize:fontSize weight:UIFontWeightUltraLight];
+                } else if ([weightString isEqualToString:@"Thin"]) {
+                    font = [FONTCLASS systemFontOfSize:fontSize weight:UIFontWeightThin];
+                } else if ([weightString isEqualToString:@"Light"]) {
+                    font = [FONTCLASS systemFontOfSize:fontSize weight:UIFontWeightLight];
+                } else if ([weightString isEqualToString:@"Medium"]) {
+                    font = [FONTCLASS systemFontOfSize:fontSize weight:UIFontWeightMedium];
+                } else if ([weightString isEqualToString:@"Bold"]) {
+                    font = [FONTCLASS systemFontOfSize:fontSize weight:UIFontWeightBold];
+                } else {
+                    // Unknown
+                    font = [FONTCLASS fontWithName:fontName size:fontSize];
+                }
+            } else {
+                font = [FONTCLASS systemFontOfSize:fontSize];
+            }
+        } else {
+            font = [FONTCLASS fontWithName:fontName size:fontSize];
+        }
+    }
 
 	if (font == nil)
 		font = [FONTCLASS systemFontOfSize:fontSize];
