@@ -19,15 +19,13 @@
 
 @implementation VSThemeLoader
 
-
-- (id)init {
+- (instancetype)initWithThemesUrl:(NSURL*)url {
 	
 	self = [super init];
 	if (self == nil)
 		return nil;
 	
-	NSString *themesFilePath = [[NSBundle mainBundle] pathForResource:@"DB5" ofType:@"plist"];
-	NSDictionary *themesDictionary = [NSDictionary dictionaryWithContentsOfFile:themesFilePath];
+	NSDictionary *themesDictionary = [NSDictionary dictionaryWithContentsOfURL:url];
 	
 	NSMutableArray *themes = [NSMutableArray array];
 	for (NSString *oneKey in themesDictionary) {

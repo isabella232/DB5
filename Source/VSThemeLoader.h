@@ -16,6 +16,8 @@
 @property (nonatomic, strong, readonly) VSTheme *defaultTheme;
 @property (nonatomic, strong, readonly) NSArray *themes;
 
+- (instancetype)initWithThemesUrl:(NSURL*)url;
+
 - (VSTheme *)themeNamed:(NSString *)themeName;
 
 @end
